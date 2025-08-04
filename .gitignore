@@ -1,0 +1,125 @@
+# .gitignore for Visual Studio, .NET, and C# projects
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# VS Code settings
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# DotCover
+*.dotCover
+
+# NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# DotTrace
+*.dotTrace
+
+# TeamCity
+_TeamCity*
+
+# DotMemory
+*.dotMemory
+
+# Logs
+*.log
+
+# Database
+*.mdf
+*.ldf
+*.ndf
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Publish
+publish/
+
+# NuGet
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# NPM
+node_modules/
+
+# Others
+*.DS_Store
+*.env
+*.swp
+*.bak
+*.tmp
+*.orig
+*.rej
+
+# Rider logs
+.idea/.idea.*
+.idea/.idea_modules
+.idea/.idea_config
+.idea/.idea_workspace
+.idea/.idea_local
+.idea/.idea_system
+.idea/.idea_cache
+.idea/.idea_index
+.idea/.idea_modules.xml
+.idea/.idea_config.xml
+.idea/.idea_workspace.xml
+.idea/.idea_local.xml
+.idea/.idea_system.xml
+.idea/.idea_cache.xml
+.idea/.idea_index.xml
+.idea/.idea_modules.iml
+.idea/.idea_config.iml
+.idea/.idea_workspace.iml
+.idea/.idea_local.iml
+.idea/.idea_system.iml
+.idea/.idea_cache.iml
+.idea/.idea_index.iml
+
+# Rider generated files
+.idea/
+.idea/.idea.UrlShortener/
+*.sln.iml
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+out/
+
+# Local history for JetBrains IDEs
+.localhistory/
+
+# Rider caches
+.idea/.cache
+.idea/.idea_modules
+.idea/.idea_config
+.idea/.idea_workspace
+.idea/.idea_local
+.idea/.idea_system
+.idea/.idea_cache
+.idea/.idea_index
+
+# End of .gitignore
+
