@@ -23,10 +23,6 @@ builder.Services.AddScoped<IBase62Encoder, Base62Encoder>();
 // Add MediatR for CQRS pattern
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
-// Register command and query handlers...
-builder.Services.AddScoped<IRequestHandler<ShortenUrlCommand, string>, ShortenUrlHandler>();
-builder.Services.AddScoped<IRequestHandler<ResolveUrlQuery, string>, ResolveUrlHandler>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
