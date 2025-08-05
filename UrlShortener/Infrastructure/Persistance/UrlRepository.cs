@@ -14,12 +14,12 @@ public class UrlRepository : IUrlRepository
 
     public void Add(UrlMapping urlMapping)
     {
-        _context.UrlMappings.Add(urlMapping);
+        _context.UrlMappings.Add(urlMapping); //CR - moze byt async ".AddAsync(..., cancellationToken)" + je tam podporovany aj CancellationToken
     }
 
     public UrlMapping GetByShortUrl(string shortUrl)
     {
-        return _context.UrlMappings.FirstOrDefault(um => um.ShortenedUrl == shortUrl)
+        return _context.UrlMappings.FirstOrDefault(um => um.ShortenedUrl == shortUrl) //CR - moze byt async ".FirstOrDefaultAsync(..., cancellationToken)"
                ?? throw new KeyNotFoundException($"Short URL '{shortUrl}' not found.");
     }
 }
