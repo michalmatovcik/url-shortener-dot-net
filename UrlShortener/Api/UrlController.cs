@@ -5,33 +5,21 @@ using UrlShortener.Shortening.Domain;
 namespace UrlShortener.Api;
 
 [ApiController]
-[Route("api/[controller]")]
-public class UrlController : ControllerBase
+[Route("api")]
+public class UrlController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public UrlController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     [HttpPost("shorten")]
     public async Task<IActionResult> ShortenUrl([FromBody] ShortenUrlCommand command)
     {
-        if (string.IsNullOrEmpty(command.Url))
-        {
-            return BadRequest("Original URL cannot be empty.");
-        }
-        
-        var shortUrl = await _mediator.Send(command);
+        var shortUrl = await mediator.Send(command);
         return Ok(new { ShortUrl = shortUrl });
     }
     
-    [HttpGet("resolve")]
-    public async Task<IActionResult> ResolveUrl(string shortUrl)
+    [HttpGet("{urlHash}")]
+    public async Task<IActionResult> ResolveUrl(string urlHash)
     {
-        var query = new ResolveUrlQuery { ShortUrl = shortUrl };
-        var resolvedUrl = await _mediator.Send(query);
+        var query = new ResolveUrlQuery { UrlHash = urlHash };
+        var resolvedUrl = await mediator.Send(query);
 
         return Redirect(resolvedUrl);
     }

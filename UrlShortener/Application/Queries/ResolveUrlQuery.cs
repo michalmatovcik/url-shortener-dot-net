@@ -4,5 +4,5 @@ namespace UrlShortener.Shortening.Domain;
 
 public class ResolveUrlQuery: IRequest<string>
 {
-    public required string ShortUrl { get; set; }
+    public required string UrlHash { get; set; }
 }

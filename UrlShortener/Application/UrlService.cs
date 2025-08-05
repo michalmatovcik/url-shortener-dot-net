@@ -1,23 +1,74 @@
+using UrlShortener.Domain;
+
 namespace UrlShortener.Application;
 
-public class UrlService : IUrlService
+public class UrlService(
+    IUrlCacheService cache,
+    IUrlRepository repository,
+    IBase62Encoder encoder)
+    : IUrlService
 {
-    private readonly ICacheService _cacheService;
-    private readonly IUrlRepository _urlRepository;
-
-    public UrlService(ICacheService cacheService, IUrlRepository urlRepository)
+    public async Task<string> ShortenUrlAsync(string url, CancellationToken cancellationToken = default)
     {
-        _cacheService = cacheService;
-        _urlRepository = urlRepository;
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            throw new ArgumentException("URL cannot be null or empty.", nameof(url));
+        }
+
+        var existingMapping = await repository.GetByUrlAsync(url, cancellationToken);
+        if (existingMapping != null)
+        {
+            return existingMapping.UrlHash;
+        }
+
+        var mapping = new UrlMapping
+        {
+            Url = url,
+            UrlHash = await GetUnusedUrlHashAsync(cancellationToken)
+        };
+
+        await repository.AddAsync(mapping, cancellationToken);
+        await cache.SetAsync(mapping.UrlHash, mapping.Url);
+
+        return mapping.UrlHash;
     }
 
-    public async Task<string> ShortenUrlAsync(string original_url)
+    public async Task<string> GetFullUrlAsync(string urlHash, CancellationToken cancellationToken = default)
     {
-        return await Task.FromResult("");
+        if (string.IsNullOrWhiteSpace(urlHash))
+        {
+            throw new ArgumentException("URL hash cannot be null or empty.", nameof(urlHash));
+        }
+
+        var cachedUrl = await cache.GetUrlHashAsync(urlHash);
+        if (cachedUrl != null)
+        {
+            return cachedUrl;
+        }
+
+        var existingMapping = await repository.GetByUrlHashAsync(urlHash, cancellationToken);
+        if (existingMapping == null)
+        {
+            throw new KeyNotFoundException($"No URL found for hash: {urlHash}");
+        }
+
+        await cache.SetAsync(existingMapping.UrlHash, existingMapping.Url);
+
+        return existingMapping.Url;
     }
 
-    public async Task<string> GetOriginalUrlAsync(string shortUrl)
+    private async Task<string> GetUnusedUrlHashAsync(CancellationToken cancellationToken)
     {
-        return await Task.FromResult("");
+        while (true)
+        {
+            var urlHash = encoder.Encode(Guid.NewGuid());
+            var existingMapping = await repository.GetByUrlHashAsync(urlHash, cancellationToken);
+            if (existingMapping != null)
+            {
+                continue;
+            }
+
+            return urlHash;
+        }
     }
 }
