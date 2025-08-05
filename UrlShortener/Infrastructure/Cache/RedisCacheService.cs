@@ -20,6 +20,6 @@ public class RedisCacheService : ICacheService
 
     public async Task SetAsync(string key, string value)
     {
-        await _database.StringSetAsync(key, value);
+        await _database.StringSetAsync(key, value); //CR - S cache moc skusenosti nemam ale myslim, ze by bolo dobre aby mal nejaky cas, kedy expiruje. Ta metoda to priamo podporuje ako nepovinny argument
     }
 }

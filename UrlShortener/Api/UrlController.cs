@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UrlShortener.Shortening.Domain;
+using UrlShortener.Application.Commands;
+using UrlShortener.Application.Queries;
 
 namespace UrlShortener.Api;
 

@@ -1,5 +1,5 @@
 using UrlShortener.Application;
-using UrlShortener.Shortening.Domain;
+using UrlShortener.Application.Commands;
 
 namespace UrlShortener.Tests.Application;
 

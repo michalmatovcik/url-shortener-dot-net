@@ -11,7 +11,7 @@ public class UrlService : IUrlService
         _urlRepository = urlRepository;
     }
 
-    public async Task<string> ShortenUrlAsync(string original_url)
+    public async Task<string> ShortenUrlAsync(string original_url) //CR - Snake case? :D
     {
         return await Task.FromResult("");
     }

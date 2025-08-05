@@ -1,0 +1,1 @@
+V tejto vrstve chyba mapping entity do DB cez IEntityTypeBuilder<T> + vytvorenie DB migracii.

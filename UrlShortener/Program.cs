@@ -1,8 +1,9 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Application;
+using UrlShortener.Application.Commands;
+using UrlShortener.Application.Queries;
 using UrlShortener.Infrastructure;
-using UrlShortener.Shortening.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,7 @@ builder.Services.AddDbContext<UrlDbContext>(options =>
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
 // Register command and query handlers...
-builder.Services.AddScoped<IRequestHandler<ShortenUrlCommand, string>, ShortenUrlHandler>();
+builder.Services.AddScoped<IRequestHandler<ShortenUrlCommand, string>, ShortenUrlHandler>(); //CR - MediatR si registruje handlery sam cez reflexiu, netreba to explicitne pisat
 builder.Services.AddScoped<IRequestHandler<ResolveUrlQuery, string>, ResolveUrlHandler>();
 
 var app = builder.Build();

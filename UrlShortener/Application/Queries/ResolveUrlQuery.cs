@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace UrlShortener.Shortening.Domain;
+namespace UrlShortener.Application.Queries; //CR - Rovnaky koment ako v ShortenUrlCommand.cs
 
 public class ResolveUrlQuery: IRequest<string>
 {
